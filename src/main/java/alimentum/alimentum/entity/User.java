@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -28,6 +29,12 @@ public class User {
           inverseJoinColumns = {
                   @JoinColumn(name="role_name", referencedColumnName = "name")})
   private List<Role> roles;
+
+
+  @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  @OrderBy("id DESC")
+  private Set<Recipe> recipes;
 
 
   public User() {}
