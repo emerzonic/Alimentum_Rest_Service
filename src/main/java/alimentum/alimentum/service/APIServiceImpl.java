@@ -1,10 +1,9 @@
 package alimentum.alimentum.service;
 
-import alimentum.alimentum.entity.Recipe;
 import alimentum.alimentum.util.Meal;
-import alimentum.alimentum.util.MealUtilClass;
-import com.google.gson.Gson;
+import alimentum.alimentum.util.RecipeUtilClass;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -12,32 +11,9 @@ import java.util.List;
 public class APIServiceImpl implements APIService{
 
   @Override
-  public List<Recipe> cleanUpSearchRecipes(String results) {
-    MealUtilClass mealUtilClass = new Gson().fromJson(results, MealUtilClass.class);
-    List <Recipe> recipes = null;
-
-    for (Meal m:mealUtilClass.getMeals()) {
-      List <String> ingredients = null;
-      List <String> measurements = null;
-
-      Recipe recipe = new Recipe();
-
-      recipe.setId(m.getIdMeal());
-      recipe.setTitle(m.getStrMeal());
-      recipe.setCategory(m.getStrCategory());
-      recipe.setCountry(m.getStrArea());
-      recipe.setInstructions(m.getStrInstructions());
-      recipe.setImageUrl(m.getStrMealThumb());
-      recipe.setVideoInstruction(m.getStrYoutube());
-
-
-      String ing = m.getStrIngredient1();
-      ingredients.add(ing);
-
-
-    }
-
-    System.out.println(results);
-    return null;
+  public List<Meal>getRecipes(String uri) {
+    RestTemplate restTemplate = new RestTemplate();
+    RecipeUtilClass result = restTemplate.getForObject(uri, RecipeUtilClass.class);
+    return result.getMeals();
   }
 }
