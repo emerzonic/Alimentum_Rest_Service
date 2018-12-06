@@ -3,7 +3,7 @@ package alimentum.alimentum.util;
 import java.util.List;
 
 
-public class MealUtilClass {
+public class RecipeUtilClass {
   private List<Meal> meals;
 
   public List<Meal> getMeals() {
@@ -16,7 +16,7 @@ public class MealUtilClass {
 
   @Override
   public String toString() {
-    return "MealUtilClass{" +
+    return "RecipeUtilClass{" +
                    "meals=" + meals +
                    '}';
   }
