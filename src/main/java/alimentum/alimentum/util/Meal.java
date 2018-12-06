@@ -1,9 +1,6 @@
 package alimentum.alimentum.util;
 
 
-import lombok.Data;
-
-@Data
 public class Meal {
   private String idMeal;
   private String strArea;
