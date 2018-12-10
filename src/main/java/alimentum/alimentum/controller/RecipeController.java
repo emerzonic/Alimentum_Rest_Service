@@ -1,6 +1,8 @@
 package alimentum.alimentum.controller;
 
+import alimentum.alimentum.entity.Recipe;
 import alimentum.alimentum.service.APIService;
+import alimentum.alimentum.service.RecipeService;
 import alimentum.alimentum.util.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +13,13 @@ import java.util.List;
 @RestController
 public class RecipeController {
   private APIService apiService;
+  private RecipeService recipeService;
 
 
   @Autowired
-  public RecipeController(APIService apiService) {
+  public RecipeController(APIService apiService,RecipeService recipeService ) {
     this.apiService = apiService;
+    this.recipeService = recipeService;
   }
 
   @GetMapping("/searchByCategory/{category}")
@@ -42,7 +46,15 @@ public class RecipeController {
   private List<Meal> searchRecipes(@RequestParam(defaultValue = "") String searchTerm){
     final String uri = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchTerm;
     return apiService.getRecipes(uri);
+  }
 
+  @PostMapping("/saveRecipe")
+  private String saveRecipe(@RequestBody(required = false) Recipe recipe){
+    String message = "fail";
+    if(recipeService.saveRecipe(recipe)){
+      message = "success";
+    }
+    return message;
   }
 
 }

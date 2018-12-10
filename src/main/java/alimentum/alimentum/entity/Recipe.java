@@ -9,135 +9,163 @@ import java.util.List;
 @Table(name="recipe")
 public class Recipe {
 
+
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
-  @Column(name = "id")
-  private String id;
+  @Column(name = "id", unique = true)
+  private Integer id;
 
-   @Column(name = "title")
-  private String title;
+  @Column(name = "meal_id")
+  private String idMeal;
 
-   @Column(name = "category")
-  private String category;
+  @Column(name = "username")
+  private String username;
 
-   @Column(name = "country")
-  private String country;
+  @Column(name = "title")
+  private String strMeal;
 
-   @Column(name = "instructions")
-  private String instructions;
+  @Column(name = "category")
+  private String strCategory;
 
-  @ElementCollection
-   @Column(name = "ingredients")
-  private List<String> ingredients;
+  @Column(name = "country")
+  private String strArea;
 
-   @Column(name = "imageUrl")
-  private String imageUrl;
 
   @ElementCollection
-  @Column(name = "measurements")
-  private List<String> measurements;
+  @CollectionTable(name="instructions", joinColumns=@JoinColumn(name="recipe_id"))
+  @Column(name="instructions", length = 255)
+  private List<String> strInstructions;
 
-   @Column(name = "measurements")
-  private String videoInstruction;
+  @ElementCollection
+  @CollectionTable(name="ingredients", joinColumns=@JoinColumn(name="recipe_id"))
+  @Column(name="ingredients", length = 255)
+  private List<String> strIngredients;
 
-   @Column(name = "sourceUrl")
-  private String sourceUrl;
+  @ElementCollection
+  @CollectionTable(name="measurements", joinColumns=@JoinColumn(name="recipe_id"))
+  @Column(name="measurements", length = 255)
+  private List<String> strMeasurements;
+
+  @Column(name = "imageUrl")
+  private String strMealThumb;
+
+  @Column(name = "sourceUrl")
+  private String strSource;
+
+  @Column(name = "videoUrl")
+  private String strYoutube;
 
   public Recipe() {
   }
 
-  public String getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
-  public String getTitle() {
-    return title;
+  public String getIdMeal() {
+    return idMeal;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setIdMeal(String idMeal) {
+    this.idMeal = idMeal;
   }
 
-  public String getCategory() {
-    return category;
+  public String getUsername() {
+    return username;
   }
 
-  public void setCategory(String category) {
-    this.category = category;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
-  public String getCountry() {
-    return country;
+  public String getStrMeal() {
+    return strMeal;
   }
 
-  public void setCountry(String country) {
-    this.country = country;
+  public void setStrMeal(String strMeal) {
+    this.strMeal = strMeal;
   }
 
-  public String getInstructions() {
-    return instructions;
+  public String getStrCategory() {
+    return strCategory;
   }
 
-  public void setInstructions(String instructions) {
-    this.instructions = instructions;
+  public void setStrCategory(String strCategory) {
+    this.strCategory = strCategory;
   }
 
-  public List<String> getIngredients() {
-    return ingredients;
+  public String getStrArea() {
+    return strArea;
   }
 
-  public void setIngredients(List<String> ingredients) {
-    this.ingredients = ingredients;
+  public void setStrArea(String strArea) {
+    this.strArea = strArea;
   }
 
-  public String getImageUrl() {
-    return imageUrl;
+  public List<String> getStrInstructions() {
+    return strInstructions;
   }
 
-  public void setImageUrl(String imageUrl) {
-    this.imageUrl = imageUrl;
+  public void setStrInstructions(List<String> strInstructions) {
+    this.strInstructions = strInstructions;
   }
 
-  public List<String> getMeasurements() {
-    return measurements;
+  public List<String> getStrIngredients() {
+    return strIngredients;
   }
 
-  public void setMeasurements(List<String> measurements) {
-    this.measurements = measurements;
+  public void setStrIngredients(List<String> strIngredients) {
+    this.strIngredients = strIngredients;
   }
 
-  public String getVideoInstruction() {
-    return videoInstruction;
+  public List<String> getStrMeasurements() {
+    return strMeasurements;
   }
 
-  public void setVideoInstruction(String videoInstruction) {
-    this.videoInstruction = videoInstruction;
+  public void setStrMeasurements(List<String> strMeasurements) {
+    this.strMeasurements = strMeasurements;
   }
 
-  public String getSourceUrl() {
-    return sourceUrl;
+  public String getStrMealThumb() {
+    return strMealThumb;
   }
 
-  public void setSourceUrl(String sourceUrl) {
-    this.sourceUrl = sourceUrl;
+  public void setStrMealThumb(String strMealThumb) {
+    this.strMealThumb = strMealThumb;
+  }
+
+  public String getStrSource() {
+    return strSource;
+  }
+
+  public void setStrSource(String strSource) {
+    this.strSource = strSource;
+  }
+
+  public String getStrYoutube() {
+    return strYoutube;
+  }
+
+  public void setStrYoutube(String strYoutube) {
+    this.strYoutube = strYoutube;
   }
 
   @Override
   public String toString() {
     return "Recipe{" +
                    "id=" + id +
-                   ", title='" + title + '\'' +
-                   ", category='" + category + '\'' +
-                   ", country='" + country + '\'' +
-                   ", instructions='" + instructions + '\'' +
-                   ", ingredients=" + ingredients +
-                   ", imageUrl='" + imageUrl + '\'' +
-                   ", measurements=" + measurements +
-                   ", videoInstruction='" + videoInstruction + '\'' +
-                   ", sourceUrl='" + sourceUrl + '\'' +
+                   ", idMeal='" + idMeal + '\'' +
+                   ", username='" + username + '\'' +
+                   ", strMeal='" + strMeal + '\'' +
+                   ", strCategory='" + strCategory + '\'' +
+                   ", strArea='" + strArea + '\'' +
+                   ", strMealThumb='" + strMealThumb + '\'' +
+                   ", strSource='" + strSource + '\'' +
+                   ", strYoutube='" + strYoutube + '\'' +
                    '}';
   }
 }

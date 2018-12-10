@@ -4,16 +4,17 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 @Entity
 public class User {
 
+
+//  @NotNull
+//  @NotEmpty
   @Id
-  @NotNull
-  @NotEmpty
   @Column(name="username", unique = true)
   private String username;
 
@@ -32,10 +33,10 @@ public class User {
 
 
   @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "username")
   @OrderBy("id DESC")
-  private Set<Recipe> recipes;
-
+  @MapKey(name = "idMeal")
+  private Map<String, Recipe> recipes;
 
   public User() {}
 
@@ -61,15 +62,49 @@ public class User {
     this.password = password;
   }
 
-  public void addRole(Role newRole) {
-    if (roles == null) {
-      roles = new ArrayList<>();
+  public List<Role> getRoles() {
+    return roles;
+  }
+
+  public void setRoles(List<Role> roles) {
+    this.roles = roles;
+  }
+
+  public Map<String, Recipe> getRecipes() {
+    return recipes;
+  }
+
+  public void setRecipes(Map<String, Recipe> recipes) {
+    this.recipes = recipes;
+  }
+
+  public Boolean addRecipe(Recipe recipe){
+    boolean recipeAdded = false;
+    if ( recipes == null) {
+      recipes = new HashMap<>();
     }
-    roles.add(newRole);
+    String key = recipe.getIdMeal();
+    boolean hasRecipe = recipes.containsKey( key );
+    if (!hasRecipe) {
+      recipes.put(key, recipe);
+      recipeAdded = true;
+    }
+    return recipeAdded;
+  }
+
+
+  public void removeRecipe(Recipe recipe){
+    if(recipes == null){
+      recipes = new HashMap<>();
+    }
+    recipes.remove(recipe.getIdMeal());
   }
 
   @Override
   public String toString() {
-    return "User [username=" + username + ", password=" + password + "]";
+    return "User{" +
+                   "username='" + username + '\'' +
+                   ", password='" + password + '\'' +
+                   '}';
   }
 }
