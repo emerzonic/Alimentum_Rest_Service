@@ -42,12 +42,6 @@ public class RecipeController {
 
   }
 
-  @PostMapping("/search")
-  private List<Meal> searchRecipes(@RequestParam(defaultValue = "") String searchTerm){
-    final String uri = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchTerm;
-    return apiService.getRecipes(uri);
-  }
-
   @PostMapping("/saveRecipe")
   private String saveRecipe(@RequestBody(required = false) Recipe recipe){
     String message = "fail";
