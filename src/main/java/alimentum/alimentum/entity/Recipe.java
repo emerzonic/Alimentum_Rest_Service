@@ -4,7 +4,14 @@ package alimentum.alimentum.entity;
 import javax.persistence.*;
 import java.util.List;
 
-
+@NamedEntityGraph(
+        name = "recipe.details",
+        includeAllAttributes = true,
+        attributeNodes = {
+                @NamedAttributeNode(value = "strInstructions"),
+                @NamedAttributeNode(value = "strIngredients"),
+                @NamedAttributeNode(value = "strMeasurements")
+        })
 @Entity
 @Table(name="recipe")
 public class Recipe {
@@ -31,17 +38,17 @@ public class Recipe {
   private String strArea;
 
 
-  @ElementCollection
+  @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name="instructions", joinColumns=@JoinColumn(name="recipe_id"))
   @Column(name="instructions", length = 255)
   private List<String> strInstructions;
 
-  @ElementCollection
+  @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name="ingredients", joinColumns=@JoinColumn(name="recipe_id"))
   @Column(name="ingredients", length = 255)
   private List<String> strIngredients;
 
-  @ElementCollection
+  @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name="measurements", joinColumns=@JoinColumn(name="recipe_id"))
   @Column(name="measurements", length = 255)
   private List<String> strMeasurements;

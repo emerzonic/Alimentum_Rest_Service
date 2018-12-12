@@ -7,6 +7,7 @@ import alimentum.alimentum.util.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -42,10 +43,25 @@ public class RecipeController {
 
   }
 
-  @PostMapping("/saveRecipe")
-  private String saveRecipe(@RequestBody(required = false) Recipe recipe){
+  @GetMapping("/getUserRecipes/{username}")
+  private List<Recipe> getRecipes(@PathVariable String username){
+    List<Recipe> recipes = new ArrayList<>();
+    for(int i = 1; i <= 12; i++) {
+      Recipe recipe = new Recipe();
+      recipe.setId(i);
+      recipe.setIdMeal("12"+i);
+      recipe.setStrMeal("Dry Rice");
+      recipe.setStrMealThumb("http://exhibitionaffairs.com/wp-content/uploads/2016/11/Ex-Africa-5c-1.jpg");
+      recipes.add(recipe);
+    }
+//  List<Recipe> recipes = recipeService.getRecipes(username);
+    return recipes;
+  }
+
+  @PostMapping("/saveRecipe/{username}")
+  private String saveRecipe(@RequestBody(required = false) Recipe recipe, @PathVariable String username){
     String message = "fail";
-    if(recipeService.saveRecipe(recipe)){
+    if(recipeService.saveRecipe(recipe, username)){
       message = "success";
     }
     return message;

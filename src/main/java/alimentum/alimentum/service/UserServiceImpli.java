@@ -18,8 +18,7 @@ public class UserServiceImpli implements UserService {
 
   @Override
   @Transactional
-  public User getUser() {
-    String username = "emerson";
+  public User getUser(String username) {
     return userRepository.findById(username).orElse(null);
   }
 

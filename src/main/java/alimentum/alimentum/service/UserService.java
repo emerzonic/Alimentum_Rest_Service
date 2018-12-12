@@ -4,6 +4,6 @@ import alimentum.alimentum.entity.User;
 
 public interface UserService {
 
-  User getUser();
+  User getUser(String username);
   void createUser(User user);
 }
