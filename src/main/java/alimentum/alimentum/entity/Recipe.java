@@ -6,15 +6,10 @@ import java.util.List;
 
 @NamedEntityGraph(
         name = "recipe.details",
-        includeAllAttributes = true,
-        attributeNodes = {
-                @NamedAttributeNode(value = "strInstructions"),
-                @NamedAttributeNode(value = "strIngredients"),
-                @NamedAttributeNode(value = "strMeasurements")
-        })
+        includeAllAttributes = true)
 @Entity
 @Table(name="recipe")
-public class Recipe {
+public class Recipe{
 
 
   @GeneratedValue(strategy = GenerationType.IDENTITY)
