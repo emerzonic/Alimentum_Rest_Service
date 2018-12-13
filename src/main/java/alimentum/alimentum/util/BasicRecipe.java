@@ -3,7 +3,6 @@ package alimentum.alimentum.util;
 
 public class BasicRecipe {
 
-
   private Integer id;
   private String idMeal;
   private String username;
@@ -87,5 +86,20 @@ public class BasicRecipe {
 
   public void setStrYoutube(String strYoutube) {
     this.strYoutube = strYoutube;
+  }
+
+  @Override
+  public String toString() {
+    return "BasicRecipe{" +
+                   "id=" + id +
+                   ", idMeal='" + idMeal + '\'' +
+                   ", username='" + username + '\'' +
+                   ", strMeal='" + strMeal + '\'' +
+                   ", strCategory='" + strCategory + '\'' +
+                   ", strArea='" + strArea + '\'' +
+                   ", strMealThumb='" + strMealThumb + '\'' +
+                   ", strSource='" + strSource + '\'' +
+                   ", strYoutube='" + strYoutube + '\'' +
+                   '}';
   }
 }
