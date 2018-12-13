@@ -12,6 +12,5 @@ import java.util.List;
 public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
   @EntityGraph(value = "recipe.details",type = EntityGraph.EntityGraphType.LOAD)
   Recipe getById(Integer recipeId);
-
   List<Recipe> getAllByUsernameLike(String username);
 }
