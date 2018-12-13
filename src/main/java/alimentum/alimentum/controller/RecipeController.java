@@ -18,44 +18,45 @@ public class RecipeController {
 
 
   @Autowired
-  public RecipeController(APIService apiService,RecipeService recipeService ) {
+  public RecipeController(APIService apiService,RecipeService recipeService ){
     this.apiService = apiService;
     this.recipeService = recipeService;
   }
 
   @GetMapping("/searchByCategory/{category}")
-  private List<Meal> searchByCategory(@PathVariable String category){
+  private List<Meal> searchByCategory(@PathVariable String category)throws Exception{
     final String uri = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + category;
     return apiService.getRecipes(uri);
   }
 
   @GetMapping("/searchByName/{name}")
-  private List<Meal> searchByName(@PathVariable String name){
+  private List<Meal> searchByName(@PathVariable String name)throws Exception{
     final String uri = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + name;
     return apiService.getRecipes(uri);
 
   }
 
   @GetMapping("/searchByRecipeId/{recipeId}")
-  private List<Meal> searchByRecipeId(@PathVariable String recipeId){
+  private List<Meal> searchByRecipeId(@PathVariable String recipeId)throws Exception{
     final String uri = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + recipeId;
     return apiService.getRecipes(uri);
 
   }
 
   @GetMapping("/getUserRecipes/{username}")
-  private List<Recipe> getRecipes(@PathVariable String username){
-    List<Recipe> recipes = new ArrayList<>();
-    for(int i = 1; i <= 12; i++) {
+  private List<Recipe> getRecipes(@PathVariable String username) throws Exception{
+    List<Recipe> basicRecipes = new ArrayList<>();
+    List<Recipe> recipes = recipeService.getRecipes(username);
+    for(Recipe r: recipes){
       Recipe recipe = new Recipe();
-      recipe.setId(i);
-      recipe.setIdMeal("12"+i);
-      recipe.setStrMeal("Dry Rice");
-      recipe.setStrMealThumb("http://exhibitionaffairs.com/wp-content/uploads/2016/11/Ex-Africa-5c-1.jpg");
-      recipes.add(recipe);
+      recipe.setIdMeal(r.getIdMeal());
+      recipe.setId(r.getId());
+      recipe.setStrMealThumb(r.getStrMealThumb());
+      recipe.setStrMeal(r.getStrMeal());
+      System.out.println(recipe.toString());
+      basicRecipes.add(recipe);
     }
-//  List<Recipe> recipes = recipeService.getRecipes(username);
-    return recipes;
+    return basicRecipes;
   }
 
   @PostMapping("/saveRecipe/{username}")
