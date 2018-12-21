@@ -9,6 +9,6 @@ public interface RecipeService {
       List<Recipe> getRecipes(String username);
       Recipe getRecipe(Integer recipeId);
       Boolean saveRecipe(Recipe recipe, String username);
-      void deleteRecipe(Recipe recipe, String username);
+      void deleteRecipe(Integer recipeId, String username);
 
 }

@@ -1,12 +1,15 @@
 package alimentum.alimentum.entity;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @NamedEntityGraph(
         name = "recipe.details",
         includeAllAttributes = true)
+@Data
 @Entity
 @Table(name="recipe")
 public class Recipe{
@@ -32,21 +35,24 @@ public class Recipe{
   @Column(name = "country")
   private String strArea;
 
+  @Column(name = "note")
+  private String note;
 
-  @ElementCollection(fetch = FetchType.LAZY)
+
+  @ElementCollection
   @CollectionTable(name="instructions", joinColumns=@JoinColumn(name="recipe_id"))
   @Column(name="instructions", length = 255)
-  private List<String> strInstructions;
+  private Set<String> strInstructions;
 
-  @ElementCollection(fetch = FetchType.LAZY)
+  @ElementCollection
   @CollectionTable(name="ingredients", joinColumns=@JoinColumn(name="recipe_id"))
   @Column(name="ingredients", length = 255)
-  private List<String> strIngredients;
+  private Set<String> strIngredients;
 
-  @ElementCollection(fetch = FetchType.LAZY)
+  @ElementCollection
   @CollectionTable(name="measurements", joinColumns=@JoinColumn(name="recipe_id"))
   @Column(name="measurements", length = 255)
-  private List<String> strMeasurements;
+  private Set<String> strMeasurements;
 
   @Column(name = "imageUrl")
   private String strMealThumb;
@@ -108,27 +114,27 @@ public class Recipe{
     this.strArea = strArea;
   }
 
-  public List<String> getStrInstructions() {
+  public Set<String> getStrInstructions() {
     return strInstructions;
   }
 
-  public void setStrInstructions(List<String> strInstructions) {
+  public void setStrInstructions(Set<String> strInstructions) {
     this.strInstructions = strInstructions;
   }
 
-  public List<String> getStrIngredients() {
+  public Set<String> getStrIngredients() {
     return strIngredients;
   }
 
-  public void setStrIngredients(List<String> strIngredients) {
+  public void setStrIngredients(Set<String> strIngredients) {
     this.strIngredients = strIngredients;
   }
 
-  public List<String> getStrMeasurements() {
+  public Set<String> getStrMeasurements() {
     return strMeasurements;
   }
 
-  public void setStrMeasurements(List<String> strMeasurements) {
+  public void setStrMeasurements(Set<String> strMeasurements) {
     this.strMeasurements = strMeasurements;
   }
 

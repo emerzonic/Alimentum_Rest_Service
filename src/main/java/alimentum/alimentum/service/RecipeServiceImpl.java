@@ -12,8 +12,8 @@ import java.util.List;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
-  private RecipeRepository recipeRepository;
-  private UserService userService;
+  private final RecipeRepository recipeRepository;
+  private final UserService userService;
 
   @Autowired
   public RecipeServiceImpl(RecipeRepository recipeRepository, UserService userService) {
@@ -26,8 +26,7 @@ public class RecipeServiceImpl implements RecipeService {
   @Transactional
   public List<Recipe> getRecipes(String username) {
     User user = userService.getUser(username);
-    System.out.println(user.toString());
-    return recipeRepository.getAllByUsernameLike(user.getUsername());
+    return recipeRepository.getAllByUsernameOrderByIdDesc(username);
   }
 
 
@@ -54,10 +53,8 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   @Transactional
-  public void deleteRecipe(Recipe recipe, String username) {
-    User user = userService.getUser(username);
-    user.removeRecipe(recipe);
-    recipeRepository.deleteById(recipe.getId());
+  public void deleteRecipe(Integer recipeId, String username) {
+    recipeRepository.deleteById(recipeId);
   }
 }
 
