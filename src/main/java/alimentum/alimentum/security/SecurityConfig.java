@@ -14,8 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static alimentum.alimentum.security.SecurityConstants.SIGN_UP_URLS;
+import static alimentum.alimentum.security.SecurityConstants.*;
 
 
 @Configuration
@@ -40,6 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     this.unauthorizedHandler = unauthorizedHandler;
     this.customUserDetailsService = customUserDetailsService;
   }
+
+  @Bean
+  public JwtAuthenticationFilter jwtAuthenticationFilter(){return new JwtAuthenticationFilter();}
 
 //  @Override
 //  protected void configure(AuthenticationManagerBuilder auth) throws Exception{
@@ -72,9 +76,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .headers().frameOptions().sameOrigin()
 //              .and()
                 .authorizeRequests()
-                  .antMatchers("/","/api/**",SIGN_UP_URLS).permitAll()
+                  .antMatchers("/",EXTERNAL_API_URLS,AUTH_URLS).permitAll()
                   .anyRequest().authenticated();
-//              .antMatchers("/api/admin/**").hasRole("ADMIN");
+//              .antMatchers("/api/admin/**").hasRole("ADMIN");//for future development
+
+    http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
 
