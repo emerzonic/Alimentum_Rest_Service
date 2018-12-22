@@ -6,9 +6,9 @@ import java.util.List;
 
 
 public interface RecipeService {
-      List<Recipe> getRecipes(String username);
-      Recipe getRecipe(Integer recipeId);
-      Boolean saveRecipe(Recipe recipe, String username);
-      void deleteRecipe(Integer recipeId, String username);
+      List<Recipe> getRecipes(Long userId);
+      Recipe getRecipe(Long recipeId);
+      Boolean saveRecipe(Recipe recipe, Long userId);
+      void deleteRecipe(Long recipeId, Long userId);
 
 }
