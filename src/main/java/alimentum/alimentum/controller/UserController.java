@@ -46,28 +46,13 @@ public class UserController {
     this.mapValidationErrorService = mapValidationErrorService;
   }
 
-  //process new user
-//  @PostMapping("/user/signup")
-//  public ResponseEntity<?> createUser(@Valid @RequestBody User user,BindingResult result)throws Exception {
-//    System.out.println("This is user "+user);
-//    userValidator.validate(user, result);
-//    ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationError(result);
-//    System.out.println(errorMap);
-//    if(errorMap != null) return errorMap;
-//
-//    if(userService.checkIfUserExist(user.getUsername())){
-//      return new ResponseEntity<>(new Message("failed", "Username already exist!"), HttpStatus.CREATED);
-//    }
-//
-//     User createdUser  = userService.createUser(user);
-//     return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
-//  }
 
 
+  @PostMapping("/signup")
+  public ResponseEntity<?> registerUser(@Valid @RequestBody User user,
+                                        BindingResult result){
+    System.out.println(user);
 
-
-  @PostMapping("/user/signup")
-  public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result){
     // Validate passwords match
     userValidator.validate(user,result);
 
@@ -75,11 +60,8 @@ public class UserController {
     if(errorMap != null)return errorMap;
 
     User newUser = userService.createUser(user);
-
     return  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
   }
-
-
 
 
 
