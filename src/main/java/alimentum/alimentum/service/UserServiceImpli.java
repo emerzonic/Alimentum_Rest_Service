@@ -24,8 +24,8 @@ public class UserServiceImpli implements UserService {
 
   @Override
   @Transactional
-  public User getUser(String username) {
-    return userRepository.findByUsername(username);
+  public User getUser(Long userId) {
+    return userRepository.getById(userId);
   }
 
 //  @Override
@@ -50,7 +50,6 @@ public class UserServiceImpli implements UserService {
       //Username has to be unique (exception)
       newUser.setUsername(newUser.getUsername());
       // Make sure that password and confirmPassword match
-      // We don't persist or show the confirmPassword
       newUser.setConfirmPassword("");
       return userRepository.save(newUser);
 
