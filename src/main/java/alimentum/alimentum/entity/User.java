@@ -38,7 +38,7 @@ public class User implements UserDetails {
 
   @JsonIgnore
   @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-  @JoinColumn(name = "username")
+  @JoinColumn(name = "user_id")
   @OrderBy("id DESC")
   @MapKey(name = "idMeal")
   private Map<String, Recipe> recipes;
