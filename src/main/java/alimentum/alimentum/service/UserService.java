@@ -6,7 +6,7 @@ import alimentum.alimentum.entity.User;
 
 public interface UserService {
 
-  User getUser(String username);
+  User getUser(Long userId);
   User createUser(User user);
   Boolean checkIfUserExist(String username);
 }
