@@ -18,13 +18,13 @@ public class Recipe{
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   @Column(name = "id", unique = true)
-  private Integer id;
+  private Long id;
 
   @Column(name = "meal_id")
   private String idMeal;
 
-  @Column(name = "username")
-  private String username;
+  @Column(name = "user_id")
+  private Long userId;
 
   @Column(name = "title")
   private String strMeal;
@@ -66,11 +66,11 @@ public class Recipe{
   public Recipe() {
   }
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -82,12 +82,12 @@ public class Recipe{
     this.idMeal = idMeal;
   }
 
-  public String getUsername() {
-    return username;
+  public Long getUserId() {
+    return userId;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setUserId(Long userId) {
+    this.userId = userId;
   }
 
   public String getStrMeal() {
@@ -167,7 +167,7 @@ public class Recipe{
     return "Recipe{" +
                    "id=" + id +
                    ", idMeal='" + idMeal + '\'' +
-                   ", username='" + username + '\'' +
+                   ", username='" + userId + '\'' +
                    ", strMeal='" + strMeal + '\'' +
                    ", strCategory='" + strCategory + '\'' +
                    ", strArea='" + strArea + '\'' +
