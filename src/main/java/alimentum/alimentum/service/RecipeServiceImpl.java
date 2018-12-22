@@ -24,26 +24,29 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   @Transactional
-  public List<Recipe> getRecipes(String username) {
-    User user = userService.getUser(username);
-    return recipeRepository.getAllByUsernameOrderByIdDesc(username);
+  public List<Recipe> getRecipes(Long userId) {
+    User user = userService.getUser(userId);
+    List<Recipe> recipes = recipeRepository.getRecipesByUserId(userId);
+    System.out.println(recipes.toString());
+
+    return  recipes;
   }
 
 
   @Override
   @Transactional
-  public Recipe getRecipe(Integer recipeId) {
+  public Recipe getRecipe(Long recipeId) {
     return recipeRepository.getById(recipeId);
   }
 
 
   @Override
   @Transactional
-  public Boolean saveRecipe(Recipe recipe, String username) {
+  public Boolean saveRecipe(Recipe recipe, Long userId) {
     boolean recipeAdded = false;
-    User user = userService.getUser(username);
+    User user = userService.getUser(userId);
     if(user.addRecipe(recipe)){
-      recipe.setUsername(user.getUsername());
+      recipe.setUserId(user.getId());
       recipeRepository.save(recipe);
       recipeAdded = true;
     }
@@ -53,7 +56,7 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   @Transactional
-  public void deleteRecipe(Integer recipeId, String username) {
+  public void deleteRecipe(Long recipeId, Long userId) {
     recipeRepository.deleteById(recipeId);
   }
 }
