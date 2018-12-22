@@ -24,66 +24,68 @@ public class RecipeController {
     this.recipeService = recipeService;
   }
 
-  @GetMapping("/api/searchByCategory/{category}")
+  @GetMapping("/api/recipes/searchByCategory/{category}")
   private List<Meal> searchByCategory(@PathVariable String category)throws Exception{
     final String uri = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + category;
     return apiService.getRecipes(uri);
   }
 
-  @GetMapping("/api/searchByName/{name}")
+  @GetMapping("/api/recipes/searchByName/{name}")
   private List<Meal> searchByName(@PathVariable String name)throws Exception{
     final String uri = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + name;
     return apiService.getRecipes(uri);
 
   }
 
-  @GetMapping("/api/searchByRecipeId/{recipeId}")
+  @GetMapping("/api/recipes/searchByRecipeId/{recipeId}")
   private List<Meal> searchByRecipeId(@PathVariable String recipeId) throws Exception{
-    System.out.println(recipeId);
     final String uri = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + recipeId;
     return apiService.getRecipes(uri);
 
   }
 
-  @GetMapping("/currentUser/getUserRecipes/{username}")
-  private List<Recipe> getRecipes(@PathVariable String username) throws Exception{
+  @GetMapping("/api/currentUser/getUserRecipes/{userId}")
+  private List<Recipe> getRecipes(@PathVariable Long userId) throws Exception{
+    System.out.println(userId);
     List<Recipe> basicRecipes = new ArrayList<>();
-    for(Recipe r: recipeService.getRecipes(username)){
+    for(Recipe r: recipeService.getRecipes(userId)){
       Recipe recipe = new Recipe();
       recipe.setId(r.getId());
       recipe.setIdMeal(r.getIdMeal());
       recipe.setStrArea(r.getStrArea());
       recipe.setStrMeal(r.getStrMeal());
-      recipe.setUsername(r.getUsername());
+      recipe.setUserId(r.getUserId());
       recipe.setStrCategory(r.getStrCategory());
       recipe.setStrMealThumb(r.getStrMealThumb());
       basicRecipes.add(recipe);
     }
+
+    System.out.println(basicRecipes);
     return basicRecipes;
 
 //    return recipeService.getRecipes(username);
   }
 
 
-  @GetMapping("/currentUser/getOneRecipe/{recipeId}")
-  private Recipe getOneRecipe(@PathVariable Integer recipeId) throws Exception{
+  @GetMapping("/api/currentUser/getOneRecipe/{recipeId}")
+  private Recipe getOneRecipe(@PathVariable Long recipeId) throws Exception{
     return recipeService.getRecipe(recipeId);
   }
 
 
-  @PostMapping("/currentUser/saveRecipe/{username}")
+  @PostMapping("/api/currentUser/saveRecipe/{userId}")
   private Message saveRecipe(@RequestBody Recipe recipe,
-                             @PathVariable String username)throws Exception{
-    if(recipeService.saveRecipe(recipe, username)){
+                             @PathVariable Long userId)throws Exception{
+    if(recipeService.saveRecipe(recipe, userId)){
       return new Message("success", "Your recipe was successfully save!");
     }
     return new Message("failed","You already have this recipe as a favorite!");
   }
 
-  @DeleteMapping("/currentUser/deleteRecipe/{username}/{recipeId}")
-  private String deleteRecipe(@PathVariable String username,
-                              @PathVariable Integer recipeId) throws Exception{
-     recipeService.deleteRecipe(recipeId, username);
+  @DeleteMapping("/api/currentUser/deleteRecipe/{userId}/{recipeId}")
+  private String deleteRecipe(@PathVariable Long userId,
+                              @PathVariable Long recipeId) throws Exception{
+     recipeService.deleteRecipe(recipeId, userId);
      return "success";
   }
 
