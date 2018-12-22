@@ -9,11 +9,11 @@ import java.util.List;
 
 
 @RepositoryRestResource
-public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
+public interface RecipeRepository extends JpaRepository<Recipe, Long> {
   @EntityGraph(value = "recipe.details",type = EntityGraph.EntityGraphType.LOAD)
-  Recipe getById(Integer recipeId);
+  Recipe getById(Long recipeId);
 
-  List<Recipe> getAllByUsernameOrderByIdDesc(String username);
+  List<Recipe> getRecipesByUserId(Long userId);
 
 
 }
