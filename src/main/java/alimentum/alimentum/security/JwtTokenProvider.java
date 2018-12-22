@@ -16,7 +16,6 @@ import static alimentum.alimentum.security.SecurityConstants.SECRET;
 public class JwtTokenProvider {
 
   //Generate the token
-
   public String generateToken(Authentication authentication){
     User user = (User)authentication.getPrincipal();
     Date now = new Date(System.currentTimeMillis());
@@ -58,7 +57,7 @@ public class JwtTokenProvider {
   }
 
   //Get user Id from token
-  public Long getId(String token){
+  public Long getUserIdFromToken(String token){
     Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
     String id = (String)claims.get("id");
     return Long.parseLong(id);
