@@ -1,6 +1,5 @@
 package alimentum.alimentum.service;
 
-import alimentum.alimentum.entity.Role;
 import alimentum.alimentum.entity.User;
 import alimentum.alimentum.exceptions.UsernameAlreadyExistsException;
 import alimentum.alimentum.repository.UserRepository;
@@ -28,19 +27,6 @@ public class UserServiceImpli implements UserService {
     return userRepository.getById(userId);
   }
 
-//  @Override
-  @Transactional
-  public User createUser1(User user) {
-    try {
-      user.setPassword(encoder.encode(user.getPassword()));
-      Role userRole = new Role("ADMIN");
-      user.addRole(userRole);
-      return userRepository.save(user);
-    }catch (Exception e){
-      throw new UsernameAlreadyExistsException("User with user '"+ user.getUsername()+ "' already exists!");
-    }
-  }
-
 
   @Override
   @Transactional
@@ -54,7 +40,7 @@ public class UserServiceImpli implements UserService {
       return userRepository.save(newUser);
 
     }catch (Exception e){
-      throw new UsernameAlreadyExistsException("Username '"+newUser.getUsername()+"' already exists");
+      throw new UsernameAlreadyExistsException("Username '"+newUser.getUsername()+"' already exists!");
     }
   }
 
@@ -62,5 +48,11 @@ public class UserServiceImpli implements UserService {
   @Transactional
   public Boolean checkIfUserExist(String username) {
     return userRepository.existsUsersByUsername(username);
+  }
+
+  @Override
+  @Transactional
+  public User findByUsername(String username) {
+    return userRepository.findByUsername(username);
   }
 }
