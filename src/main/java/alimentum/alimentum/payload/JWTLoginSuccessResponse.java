@@ -4,9 +4,11 @@ public class JWTLoginSuccessResponse {
   private boolean success;
   private String token;
 
+
   public JWTLoginSuccessResponse(boolean success, String token) {
     this.success = success;
     this.token = token;
+
   }
 
   public boolean isSuccess() {
@@ -24,6 +26,7 @@ public class JWTLoginSuccessResponse {
   public void setToken(String token) {
     this.token = token;
   }
+
 
   @Override
   public String toString() {
