@@ -6,6 +6,7 @@ import alimentum.alimentum.payload.LoginRequest;
 import alimentum.alimentum.security.JwtTokenProvider;
 import alimentum.alimentum.service.MapValidationErrorService;
 import alimentum.alimentum.service.UserService;
+import alimentum.alimentum.util.Message;
 import alimentum.alimentum.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,11 +48,9 @@ public class UserController {
   }
 
 
-
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody User user,
                                         BindingResult result){
-    System.out.println(user);
 
     // Validate passwords match
     userValidator.validate(user,result);
@@ -60,7 +59,10 @@ public class UserController {
     if(errorMap != null)return errorMap;
 
     User newUser = userService.createUser(user);
-    return  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+    Message message = new Message("success","Welcome "+newUser.getUsername()+
+                                                    ", you will have to be logged in to save recipes to " +
+                                                    "favorites or view your favorite recipes.");
+    return  new ResponseEntity<Message>(message, HttpStatus.CREATED);
   }
 
 
@@ -68,7 +70,6 @@ public class UserController {
   @PostMapping("/login")
   public ResponseEntity<?> AuthenticateUser(@Valid @RequestBody LoginRequest loginRequest,
                                             BindingResult result) {
-    System.out.println(loginRequest);
     ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationError(result);
     if(errorMap != null)return errorMap;
 
