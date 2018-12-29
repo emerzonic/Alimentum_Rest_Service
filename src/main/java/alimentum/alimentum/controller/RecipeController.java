@@ -2,12 +2,18 @@ package alimentum.alimentum.controller;
 
 import alimentum.alimentum.entity.Recipe;
 import alimentum.alimentum.service.APIService;
+import alimentum.alimentum.service.MapValidationErrorService;
 import alimentum.alimentum.service.RecipeService;
 import alimentum.alimentum.util.Meal;
 import alimentum.alimentum.util.Message;
+import alimentum.alimentum.util.RecipeSearch;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +22,16 @@ import java.util.List;
 public class RecipeController {
   private final APIService apiService;
   private final RecipeService recipeService;
+  private MapValidationErrorService mapValidationErrorService;
+
 
 
   @Autowired
-  public RecipeController(APIService apiService,RecipeService recipeService ){
+  public RecipeController(APIService apiService,RecipeService recipeService,
+                          MapValidationErrorService mapValidationErrorService ){
     this.apiService = apiService;
     this.recipeService = recipeService;
+    this.mapValidationErrorService = mapValidationErrorService;
   }
 
   @GetMapping("/api/recipes/searchByCategory/{category}")
@@ -30,12 +40,19 @@ public class RecipeController {
     return apiService.getRecipes(uri);
   }
 
-  @GetMapping("/api/recipes/searchByName/{name}")
-  private List<Meal> searchByName(@PathVariable String name)throws Exception{
-    final String uri = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + name;
-    return apiService.getRecipes(uri);
 
+  @PostMapping("/api/recipes/searchByName")
+  private ResponseEntity<?> searchByName(@Valid @RequestBody RecipeSearch search,
+                                         BindingResult result)throws Exception{
+    ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationError(result);
+    if(errorMap != null)return errorMap;
+
+    final String uri = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + search.getSearchTerm();
+    List<Meal> recipes = apiService.getRecipes(uri);
+    return new ResponseEntity<List>(recipes, HttpStatus.OK);
   }
+
+
 
   @GetMapping("/api/recipes/searchByRecipeId/{recipeId}")
   private List<Meal> searchByRecipeId(@PathVariable String recipeId) throws Exception{
@@ -44,9 +61,9 @@ public class RecipeController {
 
   }
 
+
   @GetMapping("/api/currentUser/getUserRecipes/{userId}")
   private List<Recipe> getRecipes(@PathVariable Long userId) throws Exception{
-    System.out.println(userId);
     List<Recipe> basicRecipes = new ArrayList<>();
     for(Recipe r: recipeService.getRecipes(userId)){
       Recipe recipe = new Recipe();
@@ -59,11 +76,7 @@ public class RecipeController {
       recipe.setStrMealThumb(r.getStrMealThumb());
       basicRecipes.add(recipe);
     }
-
-    System.out.println(basicRecipes);
     return basicRecipes;
-
-//    return recipeService.getRecipes(username);
   }
 
 
@@ -77,16 +90,18 @@ public class RecipeController {
   private Message saveRecipe(@RequestBody Recipe recipe,
                              @PathVariable Long userId)throws Exception{
     if(recipeService.saveRecipe(recipe, userId)){
-      return new Message("success", "Your recipe was successfully save!");
+      return new Message("success", "Your recipe was successfully saved!");
     }
-    return new Message("failed","You already have this recipe as a favorite!");
+    return new Message("fail","You already have this recipe as a favorite!");
   }
 
+
+
   @DeleteMapping("/api/currentUser/deleteRecipe/{userId}/{recipeId}")
-  private String deleteRecipe(@PathVariable Long userId,
+  private Message deleteRecipe(@PathVariable Long userId,
                               @PathVariable Long recipeId) throws Exception{
      recipeService.deleteRecipe(recipeId, userId);
-     return "success";
+    return new Message("success", "Recipe was successfully deleted.");
   }
 
 }
