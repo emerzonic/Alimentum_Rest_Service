@@ -21,6 +21,5 @@ public class UserValidator implements Validator {
     if(!user.getPassword().equals(user.getConfirmPassword())){
         errors.rejectValue("confirmPassword","Match","Passwords don't match!");
     }
-
   }
 }
