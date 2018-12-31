@@ -8,6 +8,7 @@ import alimentum.alimentum.util.Meal;
 import alimentum.alimentum.util.Message;
 import alimentum.alimentum.util.RecipeSearch;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,9 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class RecipeController {
+
+  @Value("${spring.sendgrid.api-key}")
+  private String apiKey;
   private final APIService apiService;
   private final RecipeService recipeService;
   private MapValidationErrorService mapValidationErrorService;
@@ -28,7 +32,7 @@ public class RecipeController {
 
   @Autowired
   public RecipeController(APIService apiService,RecipeService recipeService,
-                          MapValidationErrorService mapValidationErrorService ){
+                          MapValidationErrorService mapValidationErrorService){
     this.apiService = apiService;
     this.recipeService = recipeService;
     this.mapValidationErrorService = mapValidationErrorService;
@@ -36,7 +40,8 @@ public class RecipeController {
 
   @GetMapping("/api/recipes/searchByCategory/{category}")
   private List<Meal> searchByCategory(@PathVariable String category)throws Exception{
-    final String uri = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + category;
+    final String uri = "https://www.themealdb.com/api/json/v1/"+ apiKey +
+                               "/filter.php?c=" + category;
     return apiService.getRecipes(uri);
   }
 
@@ -47,7 +52,8 @@ public class RecipeController {
     ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationError(result);
     if(errorMap != null)return errorMap;
 
-    final String uri = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + search.getSearchTerm();
+    final String uri = "https://www.themealdb.com/api/json/v1/"+ apiKey +
+                               "/search.php?s=" + search.getSearchTerm();
     List<Meal> recipes = apiService.getRecipes(uri);
     return new ResponseEntity<List>(recipes, HttpStatus.OK);
   }
@@ -56,7 +62,8 @@ public class RecipeController {
 
   @GetMapping("/api/recipes/searchByRecipeId/{recipeId}")
   private List<Meal> searchByRecipeId(@PathVariable String recipeId) throws Exception{
-    final String uri = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + recipeId;
+    final String uri = "https://www.themealdb.com/api/json/v1/"+ apiKey +
+                               "/lookup.php?i=" + recipeId;
     return apiService.getRecipes(uri);
 
   }
