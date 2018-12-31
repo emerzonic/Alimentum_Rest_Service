@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://serene-shelf-44263.herokuapp.com/")
 @RestController
 public class RecipeController {
 
