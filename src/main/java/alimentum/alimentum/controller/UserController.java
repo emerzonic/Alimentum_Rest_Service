@@ -22,7 +22,7 @@ import javax.validation.Valid;
 
 import static alimentum.alimentum.security.SecurityConstants.TOKEN_PREFIX;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://serene-shelf-44263.herokuapp.com/")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
