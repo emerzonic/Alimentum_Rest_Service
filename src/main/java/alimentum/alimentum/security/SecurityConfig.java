@@ -78,7 +78,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                           "/**/*.js",
                           "/**/*.map"
                   ).permitAll()
-                  .antMatchers("/",EXTERNAL_API_URLS,AUTH_URLS).permitAll()
+                  .antMatchers("/",
+                          EXTERNAL_API_URLS,
+                          AUTH_URLS,
+                          REACT_CLIENT_BASE_URLS).permitAll()
                   .anyRequest().authenticated();
 //              .antMatchers("/api/admin/**").hasRole("ADMIN");//for future development
 
