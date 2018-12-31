@@ -33,11 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   public SecurityConfig(
-//          DataSource dataSource,
                         CustomUserDetailsService customUserDetailsService,
                         JwtAuthenticationEntryPoint unauthorizedHandler
                         )                                                            {
-//    this.dataSource = dataSource;
     this.unauthorizedHandler = unauthorizedHandler;
     this.customUserDetailsService = customUserDetailsService;
   }
@@ -45,15 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public JwtAuthenticationFilter jwtAuthenticationFilter(){return new JwtAuthenticationFilter();}
 
-//  @Override
-//  protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-//    auth.jdbcAuthentication().dataSource(dataSource)
-//            .usersByUsernameQuery("select username as principal,password as credentials, true from user where username=?")
-//            .authoritiesByUsernameQuery("select user_username as principal,role_name as role from user_roles where user_username=?")
-//            .passwordEncoder(passwordEncoder()).rolePrefix("ROLE_");
-//  }
 
-//
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
