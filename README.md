@@ -1,1 +1,2 @@
-Alimentum_Spring-Boot-Rest_Service with React.js Client
+### Alimentum Recipe finder app
+##### Spring Boot data Rest Service with React.js Client
