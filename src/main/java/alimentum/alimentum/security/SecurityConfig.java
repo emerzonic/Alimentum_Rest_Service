@@ -63,8 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
               .and()
-//                .headers().frameOptions().sameOrigin()
-//              .and()
+                .headers().frameOptions().sameOrigin()
+              .and()
                 .authorizeRequests()
                   .antMatchers(
                           "/",
