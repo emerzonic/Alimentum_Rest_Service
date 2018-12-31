@@ -66,6 +66,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .headers().frameOptions().sameOrigin()
 //              .and()
                 .authorizeRequests()
+                  .antMatchers(
+                          "/",
+                          "/favicon.ico",
+                          "/**/*.png",
+                          "/**/*.gif",
+                          "/**/*.svg",
+                          "/**/*.jpg",
+                          "/**/*.html",
+                          "/**/*.css",
+                          "/**/*.js"
+                  ).permitAll()
                   .antMatchers("/",EXTERNAL_API_URLS,AUTH_URLS).permitAll()
                   .anyRequest().authenticated();
 //              .antMatchers("/api/admin/**").hasRole("ADMIN");//for future development
