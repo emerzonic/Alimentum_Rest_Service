@@ -26,9 +26,7 @@ public class RecipeServiceImpl implements RecipeService {
   @Transactional
   public List<Recipe> getRecipes(Long userId) {
     User user = userService.getUser(userId);
-    List<Recipe> recipes = recipeRepository.getRecipesByUserId(userId);
-    System.out.println(recipes.toString());
-
+    List<Recipe> recipes = recipeRepository.getRecipesByUserId(user.getId());
     return  recipes;
   }
 
