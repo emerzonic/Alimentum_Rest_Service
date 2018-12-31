@@ -4,7 +4,7 @@ public class SecurityConstants {
 
   public static final String AUTH_URLS = "/api/users/**";
   public static final String EXTERNAL_API_URLS = "/api/recipes/**";
-  public static final String REACT_CLIENT_BASE_URLS = "/https://serene-shelf-44263.herokuapp.com/**";
+  public static final String REACT_CLIENT_BASE_URLS = "/categories/**";
 //  public static final String REACT_CLIENT_URLS2 = "/categories/**";
 //  public static final String H2_URL = "h2-console/**";
   public static final String SECRET ="SecretKeyToGenJWTs";
