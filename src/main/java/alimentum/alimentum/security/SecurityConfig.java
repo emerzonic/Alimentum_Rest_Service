@@ -77,7 +77,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                           "/**/*.html",
                           "/**/*.css",
                           "/**/*.js",
-                          "/**/*.map"
+                          "/**/*.map",
+                          "https://www.themealdb.com/**"
                   ).permitAll()
                   .antMatchers("/",
                           EXTERNAL_API_URLS,
