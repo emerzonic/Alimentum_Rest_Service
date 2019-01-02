@@ -1,9 +1,9 @@
 {
-  "main.css": "/static/css/main.131de82b.chunk.css",
-  "main.js": "/static/js/main.3ff59947.chunk.js",
-  "main.js.map": "/static/js/main.3ff59947.chunk.js.map",
-  "static/js/1.2fd523c1.chunk.js": "/static/js/1.2fd523c1.chunk.js",
-  "static/js/1.2fd523c1.chunk.js.map": "/static/js/1.2fd523c1.chunk.js.map",
+  "main.css": "/static/css/main.b1f7e5ee.chunk.css",
+  "main.js": "/static/js/main.5b9af6d6.chunk.js",
+  "main.js.map": "/static/js/main.5b9af6d6.chunk.js.map",
+  "static/js/1.e07eac16.chunk.js": "/static/js/1.e07eac16.chunk.js",
+  "static/js/1.e07eac16.chunk.js.map": "/static/js/1.e07eac16.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/error2.gif": "/static/media/error2.ff6537c1.gif",
@@ -21,8 +21,8 @@
   "static/media/headerImg.png": "/static/media/headerImg.e40c926f.png",
   "static/media/chicken.jpg": "/static/media/chicken.87f14492.jpg",
   "static/media/youtube.jpg": "/static/media/youtube.e55ad030.jpg",
-  "static/css/main.131de82b.chunk.css.map": "/static/css/main.131de82b.chunk.css.map",
+  "static/css/main.b1f7e5ee.chunk.css.map": "/static/css/main.b1f7e5ee.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.19f178af5e448dbcd9a4a6841fd7c6d6.js": "/precache-manifest.19f178af5e448dbcd9a4a6841fd7c6d6.js",
+  "precache-manifest.f34aa99d64520b8bd735621b89675a26.js": "/precache-manifest.f34aa99d64520b8bd735621b89675a26.js",
   "service-worker.js": "/service-worker.js"
 }
