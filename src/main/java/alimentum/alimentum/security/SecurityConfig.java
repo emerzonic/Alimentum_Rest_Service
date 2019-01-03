@@ -77,9 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                           "/**/*.html",
                           "/**/*.css",
                           "/**/*.js",
-                          "/**/*.map",
-                          "https://www.themealdb.com/**",
-                          "https://alimentum-recipe-finder.herokuapp.com/**"
+                          "/**/*.map"
                   ).permitAll()
                   .antMatchers("/",
                           EXTERNAL_API_URLS,
