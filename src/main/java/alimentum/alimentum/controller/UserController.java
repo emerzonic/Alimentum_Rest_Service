@@ -22,7 +22,7 @@ import javax.validation.Valid;
 
 import static alimentum.alimentum.security.SecurityConstants.TOKEN_PREFIX;
 
-@CrossOrigin(origins = "https://alimentum-recipe-finder.herokuapp.com/")
+@CrossOrigin(origins = "https://alimentum-recipe-finder.herokuapp.com/, https://calm-spire-56233.herokuapp.com/")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
