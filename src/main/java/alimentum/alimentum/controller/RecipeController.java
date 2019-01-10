@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "https://alimentum-recipe-finder.herokuapp.com/, https://calm-spire-56233.herokuapp.com/")
+@CrossOrigin
 @RestController
 public class RecipeController {
 
